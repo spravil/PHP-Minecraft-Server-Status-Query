@@ -1,6 +1,16 @@
 <?php
 
+/*
+ * Minecraft Server Status Query
+ * Code by Julian Spravil <julian.spr@t-online.de>
+ * GitHub: https://github.com/FunnyItsElmo/PHP-Minecraft-Server-Status-Query
+*/
     class MinecraftServerStatus {
+
+        /*
+         * string $address - IP address or Domain of the Minecraft server.
+         * int $port - Port of the Minecraft server (default = 25565).
+        */
 
         public function getStatus($host = '127.0.0.1', $port = 25565) {
 
