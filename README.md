@@ -24,11 +24,11 @@ $response = $status->getStatus('pvp24.com', 25565); // when you dont have the de
 After that you only have to check the response.
 ```php
 if(!$response) {
-  echo"The Server is offline!";
+	echo"The Server is offline!";
 } else {
-	echo"The Server ".$response['hostname']." is online,
+	echo"The Server ".$response['hostname']." is running on ".$response['version']." and is online,
 	currently are ".$response['players']." players online
-	of a maximum of ".$response['maxplayers'].".";
+	of a maximum of ".$response['maxplayers'].". The motd of the server is '".$response['motd']."'.";
 }
 ```
-If the server is offline it returns false else it returns an array which contains the variables 'hostname', 'players' and 'maxplayers'.
+If the server is offline it returns false else it returns an array which contains the variables 'hostname', 'players', 'motd', 'version' and 'maxplayers'.
