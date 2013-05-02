@@ -8,7 +8,8 @@
 	} else {
 		echo"The Server ".$response['hostname']." is running on ".$response['version']." and is online,
 		currently are ".$response['players']." players online
-		of a maximum of ".$response['maxplayers'].". The motd of the server is '".$response['motd']."'.";
+		of a maximum of ".$response['maxplayers'].". The motd of the server is '".$response['motd']."'. 
+		The server has a ping of ".$response['ping']." milliseconds.";
 	}
 
 ?>
