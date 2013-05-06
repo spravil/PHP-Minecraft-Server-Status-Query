@@ -47,7 +47,7 @@
                 stream_set_timeout($socket, $this->timeout);
 
                 //Write and read data
-                fwrite($socket, "\xFE");
+                fwrite($socket, "\xFE\x01");
                 $data = fread($socket, 2048);
                 fclose($socket);
                 if($data == null) return false;
