@@ -75,6 +75,8 @@
                     $motd = preg_replace("/(§.)/", "", $motd);
 
                 }
+                //Remove all special characters from a string
+                $motd = preg_replace("/[^[:alnum:][:punct:] ]/", "", $motd);
 
                 //Set variables
                 $res = array();
