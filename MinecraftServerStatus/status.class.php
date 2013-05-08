@@ -48,6 +48,7 @@
 
                 //Write and read data
                 fwrite($socket, "\xFE");
+                fwrite($socket, "\x01");
                 $data = fread($socket, 2048);
                 fclose($socket);
                 if($data == null) return false;
