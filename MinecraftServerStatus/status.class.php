@@ -1,10 +1,5 @@
 <?php
 
-    /*
-     * Minecraft Server Status Query
-     * Code by Julian Spravil <julian.spr@t-online.de>
-     * GitHub: https://github.com/FunnyItsElmo/PHP-Minecraft-Server-Status-Query
-    */
     /**
      * Minecraft Server Status Query
      * @author Julian Spravil <julian.spr@t-online.de> https://github.com/FunnyItsElmo
