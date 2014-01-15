@@ -7,86 +7,160 @@
      * @copyright © 2013 Julian Spravil
      */
     class MinecraftServerStatus {
+
         private $timeout;
 
-        /**
-         * Prepares the class.
-         * @param int    $timeout   default(3)
-         */
-        public function __construct($timeout = 3) {
+        public function __construct($timeout = 2) {
             $this->timeout = $timeout;
         }
 
-        /**
-         * Gets the status of the target server.
-         * @param string    $host    domain or ip address
-         * @param int    $port    default(25565)
-         */
-        public function getStatus($host = '127.0.0.1', $port = 25565) {
+        public function getStatus($host = '127.0.0.1', $version = '1.7.*' , $port = 25565) {
 
-            //Transform domain to ip address.
             if (substr_count($host , '.') != 4) $host = gethostbyname($host);
 
-            //Get timestamp for the ping
-            $start = microtime(true);
+            $serverdata = array();
+            $serverdata['hostname'] = $host;
+            $serverdata['version'] = false;
+            $serverdata['protocol'] = false;
+            $serverdata['players'] = false;
+            $serverdata['maxplayers'] = false;
+            $serverdata['motd'] = false;
+            $serverdata['motd_raw'] = false;
+            $serverdata['favicon'] = false;
+            $serverdata['ping'] = false;
 
-            //Connect to the server
-            if(!$socket = @stream_socket_client('tcp://'.$host.':'.$port, $errno, $errstr, $this->timeout)) {
+            $socket = $this->connect($host, $port);
 
-                //Server is offline
+            if(!$socket) {
                 return false;
+            }
 
+            if(preg_match('/1.7|1.8/',$version)) {
+
+                $start = microtime(true);
+
+                $handshake = pack('cccca*', hexdec(strlen($host)), 0, 0x04, strlen($host), $host).pack('nc', $port, 0x01);
+
+                socket_send($socket, $handshake, strlen($handshake), 0); //give the server a high five
+                socket_send($socket, "\x01\x00", 2, 0);
+                socket_read( $socket, 1 );
+
+                $ping = round((microtime(true)-$start)*1000); //calculate the high five duration
+
+                $packetlength = $this->read_packet_length($socket);
+
+                if($packetlength < 10) {
+                    return false;
+                }
+
+                socket_read($socket, 1);
+
+                $packetlength = $this->read_packet_length($socket);
+
+                $data = socket_read($socket, $packetlength, PHP_NORMAL_READ);
+
+                if(!$data) {
+                    return false;
+                }
+
+                $data = json_decode($data);
+
+                $serverdata['version'] = $data->version->name;
+                $serverdata['protocol'] = $data->version->protocol;
+                $serverdata['players'] = $data->players->online;
+                $serverdata['maxplayers'] = $data->players->max;
+
+                $motd = $data->description;
+                $motd = preg_replace("/(§.)/", "",$motd);
+                $motd = preg_replace("/[^[:alnum:][:punct:] ]/", "", $motd);
+
+                $serverdata['motd'] = $motd;
+                $serverdata['motd_raw'] = $data->description;
+                $serverdata['favicon'] = $data->favicon;
+                $serverdata['ping'] = $ping;
 
             } else {
 
-                stream_set_timeout($socket, $this->timeout);
+                $start = microtime(true);
 
-                //Write and read data
-                fwrite($socket, "\xFE\x01");
-                $data = fread($socket, 2048);
-                fclose($socket);
-                if($data == null) return false;
+                socket_send($socket, "\xFE\x01", 2, 0);
+                $length = socket_recv($socket, $data, 512, 0);
 
-                //Calculate the ping
-                $ping = round((microtime(true)-$start)*1000);
+                $ping = round((microtime(true)-$start)*1000);//calculate the high five duration
+                
+                if($length < 4 || $data[0] != "\xFF") {
+                    return false;
+                }
+
+                $motd = "";
+                $motdraw = "";
 
                 //Evaluate the received data
                 if (substr((String)$data, 3, 5) == "\x00\xa7\x00\x31\x00"){
 
                     $result = explode("\x00", mb_convert_encoding(substr((String)$data, 15), 'UTF-8', 'UCS-2'));
-                    $motd = preg_replace("/(§.)/", "",$result[1]);
+                    $motd = $result[1];
+                    $motdraw = $motd;
 
-                }else{
+                } else {
 
                     $result = explode('§', mb_convert_encoding(substr((String)$data, 3), 'UTF-8', 'UCS-2'));
-
-                    $motd = "";
-                    foreach ($result as $key => $string) {
-                        if($key != sizeof($result)-1 && $key != sizeof($result)-2 && $key != 0) {
-                            $motd .= '§'.$string;
+                        foreach ($result as $key => $string) {
+                            if($key != sizeof($result)-1 && $key != sizeof($result)-2 && $key != 0) {
+                                $motd .= '§'.$string;
+                            }
                         }
+                        $motdraw = $motd;
                     }
 
                     $motd = preg_replace("/(§.)/", "", $motd);
+                    $motd = preg_replace("/[^[:alnum:][:punct:] ]/", "", $motd); //Remove all special characters from a string
 
-                }
-                //Remove all special characters from a string
-                $motd = preg_replace("/[^[:alnum:][:punct:] ]/", "", $motd);
+                    $serverdata['version'] = $result[0];
+                    $serverdata['players'] = $result[sizeof($result)-2];
+                    $serverdata['maxplayers'] = $result[sizeof($result)-1];
+                    $serverdata['motd'] = $motd;
+                    $serverdata['motd_raw'] = $motdraw;
+                    $serverdata['ping'] = $ping;
 
-                //Set variables
-                $res = array();
-                $res['hostname'] = $host;
-                $res['version'] = $result[0];
-                $res['motd'] = $motd;
-                $res['players'] = $result[sizeof($result)-2];
-                $res['maxplayers'] = $result[sizeof($result)-1];
-                $res['ping'] = $ping;
-
-                //return obj
-                return $res;
             }
 
-        }
-    }
+            $this->disconnect($socket);
 
-?>
+            return $serverdata;
+
+        }
+
+        private function connect($host, $port) {
+            $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+            socket_connect($socket, $host, $port); 
+            return $socket;
+        }
+
+        private function disconnect($socket) {
+            if($socket != null) {
+                socket_close($socket);
+            }
+        }
+
+        private function read_packet_length($socket) {
+            $a = 0;
+            $b = 0;
+            while(true) {
+                $c = socket_read($socket, 1);
+                if(!$c) {
+                    return 0;
+                }
+                $c = Ord($c);
+                $a |= ($c & 0x7F) << $b++ * 7;
+                if( $b > 5 ) {
+                    return false;
+                }
+                if(($c & 0x80) != 128) {
+                    break;
+                }
+            }
+            return $a;
+        }
+
+    }
