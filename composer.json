@@ -2,6 +2,6 @@
     "name": "funny-its-elmo/php-minecraft-server-status-query",
     "description": "Minecraft server status query with slots and online players query without plugins and enable-query.",
     "autoload": {
-        "classmap": "MinecraftServerStatus/"
+        "classmap": ["MinecraftServerStatus/"]
     }
 }
