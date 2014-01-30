@@ -133,6 +133,8 @@
 
         private function connect($host, $port) {
             $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+            socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array('sec' => $this->timeout, 'usec' => 0));
+            socket_set_option($socket,SOL_SOCKET, SO_SNDTIMEO, array('sec' => $this->timeout, 'usec' => 0));
             socket_connect($socket, $host, $port); 
             return $socket;
         }
