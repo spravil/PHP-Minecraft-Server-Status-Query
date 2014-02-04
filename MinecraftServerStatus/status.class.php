@@ -28,6 +28,7 @@
             $serverdata['motd_raw'] = false;
             $serverdata['favicon'] = false;
             $serverdata['ping'] = false;
+            $serverdata['players_list'] = array();
 
             $socket = $this->connect($host, $port);
 
@@ -79,6 +80,16 @@
                 $serverdata['favicon'] = $data->favicon;
                 $serverdata['ping'] = $ping;
 
+                if (isset($data->players->sample)) {
+                    $players_list = array();
+
+                    foreach ($data->players->sample as $player) {
+                        $players_list []= (array)$player;
+                    }
+
+                    $serverdata['players_list'] = $players_list;
+                }
+
             } else {
 
                 $start = microtime(true);
@@ -87,7 +98,7 @@
                 $length = socket_recv($socket, $data, 512, 0);
 
                 $ping = round((microtime(true)-$start)*1000);//calculate the high five duration
-                
+
                 if($length < 4 || $data[0] != "\xFF") {
                     return false;
                 }
@@ -113,16 +124,15 @@
                         $motdraw = $motd;
                     }
 
-                    $motd = preg_replace("/(§.)/", "", $motd);
-                    $motd = preg_replace("/[^[:alnum:][:punct:] ]/", "", $motd); //Remove all special characters from a string
+                $motd = preg_replace("/(§.)/", "", $motd);
+                $motd = preg_replace("/[^[:alnum:][:punct:] ]/", "", $motd); //Remove all special characters from a string
 
-                    $serverdata['version'] = $result[0];
-                    $serverdata['players'] = $result[sizeof($result)-2];
-                    $serverdata['maxplayers'] = $result[sizeof($result)-1];
-                    $serverdata['motd'] = $motd;
-                    $serverdata['motd_raw'] = $motdraw;
-                    $serverdata['ping'] = $ping;
-
+                $serverdata['version'] = $result[0];
+                $serverdata['players'] = $result[sizeof($result)-2];
+                $serverdata['maxplayers'] = $result[sizeof($result)-1];
+                $serverdata['motd'] = $motd;
+                $serverdata['motd_raw'] = $motdraw;
+                $serverdata['ping'] = $ping;
             }
 
             $this->disconnect($socket);
@@ -135,7 +145,7 @@
             $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
             socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array('sec' => $this->timeout, 'usec' => 0));
             socket_set_option($socket,SOL_SOCKET, SO_SNDTIMEO, array('sec' => $this->timeout, 'usec' => 0));
-            socket_connect($socket, $host, $port); 
+            socket_connect($socket, $host, $port);
             return $socket;
         }
 
