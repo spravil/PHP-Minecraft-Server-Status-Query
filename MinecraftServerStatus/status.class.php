@@ -32,7 +32,13 @@
             $socket = $this->connect($host, $port);
 
             if(!$socket) {
-                return false;
+            	/* if query is off ping */
+                $serverdata['ping'] = $this->ping($host,$port);
+                if(!$serverdata['ping']){
+					return false;
+                }else{
+                    return $serverdata;
+                }
             }
 
             if(preg_match('/1.7|1.8/',$version)) {
@@ -133,8 +139,26 @@
 
         private function connect($host, $port) {
             $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-            socket_connect($socket, $host, $port); 
-            return $socket;
+			
+			//Prevent connection errors from being logged
+			if(!socket_set_nonblock($socket)) return false;
+			
+			$time = time(); //While loop for timeout
+			while (!@socket_connect($socket, $host, $port)){
+				$err = socket_last_error($socket);
+				if ($err == 115 || $err == 114){
+					if ((time() - $time) >= $this->timeout){
+						socket_close($socket);
+						return false;
+					}
+					sleep(1);continue;
+				}
+				return false;
+			}
+			
+			if(!socket_set_block($socket)) return false;
+			
+			return $socket;
         }
 
         private function disconnect($socket) {
@@ -162,5 +186,16 @@
             }
             return $a;
         }
-
+        
+		/* Alternative ping if query is off 
+		 * Can be called alone to save connection time
+		 * */ 
+        public function ping($host,$port) {
+    		$ts = microtime(true); 
+    		$fs = @fSockOpen($host, $port, $errno, $errstr, $this->timeout); 
+    		if(!$fs){ return false; } 
+    		
+    		$te = microtime(true); 
+    		return round((($te - $ts) * 1000), 0);/* Ping time in milliseconds */
+    	}
     }
