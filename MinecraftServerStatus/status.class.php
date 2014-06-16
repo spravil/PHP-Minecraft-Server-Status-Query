@@ -133,7 +133,10 @@
 
         private function connect($host, $port) {
             $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-            socket_connect($socket, $host, $port); 
+            if (!@socket_connect($socket, $host, $port)) {
+        		$this->disconnect($socket);
+        		return false;
+    	    }
             return $socket;
         }
 
