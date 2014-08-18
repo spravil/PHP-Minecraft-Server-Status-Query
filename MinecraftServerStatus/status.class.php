@@ -43,6 +43,7 @@
 
                 socket_send($socket, $handshake, strlen($handshake), 0); //give the server a high five
                 socket_send($socket, "\x01\x00", 2, 0);
+                usleep(500);
                 socket_read( $socket, 1 );
 
                 $ping = round((microtime(true)-$start)*1000); //calculate the high five duration
