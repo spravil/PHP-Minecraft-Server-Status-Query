@@ -1,7 +1,7 @@
 Minecraft Server Status Query
 ====================
 
-Minecraft server status query with slots and online players query <b>without plugins and enable-query</b>.<br>
+Minecraft server status query with slots and online players query <b>without plugins and enable-query</b> working with nearly every minecraft verion including 1.8, 1,7,10 etc.<br>
 Download all files, view the example.php on your webserver and feel free to use it.<br>
 <b>Twitter: https://twitter.com/Spravil <-- Follow if you like my work and want to stay up to date :)</b>
 
@@ -20,7 +20,7 @@ $response = $status->getStatus('pvp24.com'); // call the function
 ```
 Also if your server dont have the default port (25565) you can add it as getStatus(ip, version, port).
 ```php
-$response = $status->getStatus('pvp24.com', '1.7.*',  25565); // when you dont have the default port 
+$response = $status->getStatus('pvp24.com', '1.7.10',  25565); // when you dont have the default port 
 ```
 When you server runs an older version then 1.7.* you must specify the version.
 ```php
@@ -56,7 +56,7 @@ The table contains the aviable variables the response can contain.<br> The defau
 </tr>
 <tr>
 <td><pre>'version'</pre></td>
-<td>The server version <br>(for example: 1.7.2)</td>
+<td>The server version <br>(for example: 1.8)</td>
 </tr>
 <tr>
 <td><pre>'protocol'</pre></td>
