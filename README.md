@@ -1,7 +1,7 @@
 Minecraft Server Status Query
 ====================
 
-Minecraft server status query with slots and online players query <b>without plugins and enable-query</b> working with nearly every minecraft verion including 1.8, 1,7,10 etc.<br>
+Minecraft server status query with slots and online players query <b>without plugins and enable-query</b> working with nearly every minecraft version including 1.8, 1.7.10 etc.<br>
 Download all files, view the example.php on your webserver and feel free to use it.<br>
 <b>Twitter: https://twitter.com/Spravil <-- Follow if you like my work and want to stay up to date :)</b>
 
