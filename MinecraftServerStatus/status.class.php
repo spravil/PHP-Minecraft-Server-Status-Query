@@ -14,7 +14,7 @@
             $this->timeout = $timeout;
         }
 
-        public function getStatus($host = '127.0.0.1', $version = '1.7.*' , $port = 25565) {
+        public function getStatus($host = '127.0.0.1', $port = 25565, $version = '1.7.*') {
 
             if (substr_count($host , '.') != 4) $host = gethostbyname($host);
 
