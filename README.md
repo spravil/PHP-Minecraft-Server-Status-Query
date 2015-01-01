@@ -1,9 +1,11 @@
 Minecraft Server Status Query
 ====================
 
-Minecraft server status query with slots and online players query <b>without plugins and enable-query</b> working with nearly every minecraft version including 1.8, 1.7.10 etc.<br>
-Download all files, view the example.php on your webserver and feel free to use it.<br>
-<b>Twitter: https://twitter.com/Spravil <-- Follow if you like my work and want to stay up to date :)</b>
+Minecraft server status query with slots and online players query **without plugins and enable-query** working with nearly every Minecraft version including 1.8, 1.7.10 etc.
+
+Download all files, view the example.php on your web server and feel free to use it.
+
+**Twitter: https://twitter.com/Spravil <-- Follow if you like my work and want to stay up to date :)**
 
 Tutorial
 ========
@@ -18,13 +20,13 @@ You have to replace the domain 'pvp24.com' with the ip or domain of your server.
 ```php
 $response = $status->getStatus('pvp24.com'); // call the function 
 ```
-Also if your server dont have the default port (25565) you can add it as getStatus(ip, version, port).
+Also if your server don't have the default port (25565) you can add it as getStatus(ip, port, version).
 ```php
-$response = $status->getStatus('pvp24.com', '1.7.10',  25565); // when you dont have the default port 
+$response = $status->getStatus('pvp24.com', 25565, '1.7.10'); // when you don't have the default port 
 ```
 When you server runs an older version then 1.7.* you must specify the version.
 ```php
-$response = $status->getStatus('pvp24.com', '1.6.*'); // when you server is older then 1.7.*
+$response = $status->getStatus('pvp24.com', 25565, '1.6.*'); // when you server is older then 1.7.*
 ```
 After that you only have to check the response.
 ```php
@@ -43,7 +45,10 @@ If the server is offline it returns false else it returns an array which contain
 Variables
 ========
 
-The table contains the aviable variables the response can contain.<br> The default content of each variable is false.
+The table contains the available variables the response can contain.
+
+The default content of each variable is false.
+
 <br>
 <table border="0">
 <tr>
@@ -76,7 +81,7 @@ The table contains the aviable variables the response can contain.<br> The defau
 </tr>
 <tr>
 <td><pre>'motd_raw'</pre></td>
-<td>The raw version of the motd of the server <br>(contains color codes etc.)</td>
+<td>The raw version of the MOTD of the server <br>(contains color codes etc.)</td>
 </tr>
 <tr>
 <td><pre>'favicon'</pre></td>
