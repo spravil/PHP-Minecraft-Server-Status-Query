@@ -16,7 +16,14 @@
 
         public function getStatus($host = '127.0.0.1', $port = 25565, $version = '1.7.*') {
 
-            if (substr_count($host , '.') != 4) $host = gethostbyname($host);
+            if (substr_count($host , '.') != 4) {
+				$lookup = dns_get_record("_minecraft._tcp.". $host, DNS_SRV);
+				if ( count( $lookup ) > 0 ) {
+					$host = $lookup[0]["target"];
+					$port = $lookup[0]["port"];			
+				}
+			}
+			$host = gethostbyname($host);
 
             $serverdata = array();
             $serverdata['hostname'] = $host;
