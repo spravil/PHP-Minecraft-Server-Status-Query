@@ -16,7 +16,7 @@
 
         public function getStatus($host = '127.0.0.1', $port = 25565, $version = '1.7.*') {
 
-            if (substr_count($host , '.') != 4) $host = gethostbyname($host);
+            if (preg_match("/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/", $host) !== 1) $host = gethostbyname($host);
 
             $serverdata = array();
             $serverdata['hostname'] = $host;
