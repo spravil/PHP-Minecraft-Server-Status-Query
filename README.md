@@ -2,6 +2,8 @@
 
 Minecraft Server Status Query, written in PHP, with online players, motd, favicon and more server related informations without plugins and enable-query.
 
+*Tested with Spigot 1.9 and Bungeecord 1.9 & 1.8*
+
 ### Installation
 ```
 composer require FunnyItsElmo/MinecraftServerStatus
@@ -73,6 +75,10 @@ The following table contains the available variables the response can contain. T
 <tr>
 <td><pre>'favicon'</pre></td>
 <td>The favicon of the server in a base64 string <br>(Can be displayed with the html img tag by setting the string as src)</td>
+</tr>
+<tr>
+<td><pre>'modinfo'</pre></td>
+<td>Informations about the plugins</td>
 </tr>
 </table>
 
