@@ -1,0 +1,22 @@
+{
+	"name" : "FunnyItsElmo/MinecraftServerStatus",
+	"type" : "library",
+	"description" : "",
+	"keywords" : [
+		"minecraft",
+		"server",
+		"status"
+	],
+	"license" : "BSD",
+	"autoload" : {
+		"psr-4" : {
+			"MinecraftServerStatus\\" : "src/",
+			"MinecraftServerStatus\\Packets\\" : "src/Packets/"
+		}
+	},
+	"authors" : [{
+			"name" : "Julian Spravil",
+			"email" : "julian.spr@t-online.de"
+		}
+	]
+}
