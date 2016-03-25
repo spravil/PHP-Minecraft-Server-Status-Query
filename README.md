@@ -7,20 +7,6 @@ Minecraft Server Status Query, written in PHP, with online players, motd, favico
 composer require FunnyItsElmo/MinecraftServerStatus
 ```
 ###Tutorial
-
-
-
-Minecraft Server Status Query
-====================
-
-Minecraft server status query with slots and online players query **without plugins and enable-query** working with nearly every Minecraft version including 1.8, 1.7.10 etc.
-
-Download all files, view the example.php on your web server and feel free to use it.
-
-**Twitter: https://twitter.com/Spravil <-- Follow if you like my work and want to stay up to date :)**
-
-Tutorial
-========
 ```Java
 use MinecraftServerStatus\MinecraftServerStatus;
 
