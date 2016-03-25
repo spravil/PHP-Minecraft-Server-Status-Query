@@ -5,7 +5,8 @@
 	"keywords" : [
 		"minecraft",
 		"server",
-		"status"
+		"status",
+		"query"
 	],
 	"license" : "BSD",
 	"autoload" : {
