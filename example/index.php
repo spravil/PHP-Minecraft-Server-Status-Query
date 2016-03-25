@@ -3,7 +3,7 @@ use MinecraftServerStatus\MinecraftServerStatus;
 
 require '../vendor/autoload.php';
 
-$response = MinecraftServerStatus::query('mc.hypixel.net', 25565);
+$response = MinecraftServerStatus::query('lostforce.com', 25565);
 
 if (! $response) {
     echo "The Server is offline!";
