@@ -1,3 +1,15 @@
+#Minecraft Server Status Query
+
+Minecraft Server Status Query, written in PHP, with online players, motd, favicon and more server related informations without plugins and enable-query.
+
+### Installation
+```
+composer require FunnyItsElmo/MinecraftServerStatus
+```
+###Tutorial
+
+
+
 Minecraft Server Status Query
 ====================
 
@@ -9,47 +21,28 @@ Download all files, view the example.php on your web server and feel free to use
 
 Tutorial
 ========
+```Java
+use MinecraftServerStatus\MinecraftServerStatus;
 
-Firstly, you have to include in your php file the status.class.php and call the class.
-```php
-include_once 'MinecraftServerStatus/status.class.php'; //include the class
-$status = new MinecraftServerStatus(); // call the class
-```
-Then you call the getStatus() function.
-You have to replace the domain 'pvp24.com' with the ip or domain of your server.
-```php
-$response = $status->getStatus('pvp24.com'); // call the function 
-```
-Also if your server don't have the default port (25565) you can add it as getStatus(ip, port, version).
-```php
-$response = $status->getStatus('pvp24.com', 25565, '1.7.10'); // when you don't have the default port 
-```
-When you server runs an older version then 1.7.* you must specify the version.
-```php
-$response = $status->getStatus('pvp24.com', 25565, '1.6.*'); // when you server is older then 1.7.*
-```
-After that you only have to check the response.
-```php
-if(!$response) {
-    echo"The Server is offline!";
+require '../vendor/autoload.php';
+
+$response = MinecraftServerStatus::query('lostforce.com', 25565);
+
+if (! $response) {
+    echo "The Server is offline!";
 } else {
-	echo"<img width=\"64\" height=\"64\" src=\"".$response['favicon']."\" /> <br>
-    The Server ".$response['hostname']." is running on ".$response['version']." and is online,
-    currently are ".$response['players']." players online
-    of a maximum of ".$response['maxplayers'].". The motd of the server is '".$response['motd']."'.
-    The server has a ping of ".$response['ping']." milliseconds.";
+    echo "<img width=\"64\" height=\"64\" src=\"" . $response['favicon'] . "\" /> <br>
+		The Server " . $response['hostname'] . " is running on " . $response['version'] . " and is online,
+		currently are " . $response['players'] . " players online
+		of a maximum of " . $response['max_players'] . ". The motd of the server is '" . $response['description'] . "'.
+		The server has a ping of " . $response['ping'] . " milliseconds.";
 }
 ```
-If the server is offline it returns false else it returns an array which contains variables.
+If the server is offline MinecraftServerStatus::query returns false else it returns an array which contains the server informations.
 
-Variables
-========
+###Variables
+The following table contains the available variables the response can contain. The default value of each variable is false.
 
-The table contains the available variables the response can contain.
-
-The default content of each variable is false.
-
-<br>
 <table border="0">
 <tr>
 <th>Array Index</th>
@@ -60,36 +53,40 @@ The default content of each variable is false.
 <td>Exact server address in 127.0.0.1 format</td>
 </tr>
 <tr>
+<td><pre>'port'</pre></td>
+<td>The servers port for example 25565</td>
+</tr>
+<tr>
+<td><pre>'ping'</pre></td>
+<td>The time in ms the server needs to answer</td>
+</tr>
+<tr>
 <td><pre>'version'</pre></td>
-<td>The server version <br>(for example: 1.8)</td>
+<td>The server version <br>(for example: 1.9)</td>
 </tr>
 <tr>
 <td><pre>'protocol'</pre></td>
-<td>The server protocol <br>(for example: 4)</td>
+<td>The server protocol <br>(for example: 107)</td>
 </tr>
 <tr>
 <td><pre>'players'</pre></td>
 <td>Amount of players who are currently online</td>
 </tr>
 <tr>
-<td><pre>'maxplayers'</pre></td>
+<td><pre>'max_players'</pre></td>
 <td>Number of the slots of the server</td>
 </tr>
 <tr>
-<td><pre>'motd'</pre></td>
+<td><pre>'description'</pre></td>
 <td>The message of the day of the server </td>
 </tr>
 <tr>
-<td><pre>'motd_raw'</pre></td>
-<td>The raw version of the MOTD of the server <br>(contains color codes etc.)</td>
+<td><pre>'description_raw'</pre></td>
+<td>The raw version of description <br>(contains color codes etc.)</td>
 </tr>
 <tr>
 <td><pre>'favicon'</pre></td>
 <td>The favicon of the server in a base64 string <br>(Can be displayed with the html img tag by setting the string as src)</td>
-</tr>
-<tr>
-<td><pre>'ping'</pre></td>  
-<td>The time the server needs to respond in ms</td>
 </tr>
 </table>
 
