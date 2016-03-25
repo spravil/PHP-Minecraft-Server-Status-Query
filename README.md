@@ -6,7 +6,7 @@ Minecraft Server Status Query, written in PHP, with online players, motd, favico
 
 ### Installation
 ```
-composer require FunnyItsElmo/MinecraftServerStatus
+composer require funnyitselmo/minecraftserverstatus
 ```
 ###Tutorial
 ```Java
