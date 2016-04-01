@@ -68,11 +68,15 @@ The following table contains the available variables the response can contain. T
 </tr>
 <tr>
 <td><pre>'description'</pre></td>
-<td>The message of the day of the server </td>
+<td>The message of the day of the server <br>(sometimes styled with `<span class="minecraft-format-<code>">`, available codes taken from [wiki](http://minecraft.gamepedia.com/Formatting_codes))</td>
+</tr>
+<tr>
+<td><pre>'description_clean'</pre></td>
+<td>Clean version of description <br>(without color codes etc.)</td>
 </tr>
 <tr>
 <td><pre>'description_raw'</pre></td>
-<td>The raw version of description <br>(contains color codes etc.)</td>
+<td>The raw version of description <br>(contains color codes etc., possibly an object)</td>
 </tr>
 <tr>
 <td><pre>'favicon'</pre></td>
