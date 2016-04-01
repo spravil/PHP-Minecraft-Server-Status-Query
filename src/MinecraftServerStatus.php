@@ -47,14 +47,33 @@ class MinecraftServerStatus {
         
         $descriptionRaw = isset($data->description) ? $data->description : false;
         $description = $descriptionRaw;
+        $descriptionClean = $descriptionRaw;
         
         // colorize the description if it is supported
-        if (gettype($descriptionRaw) == 'object' && isset($descriptionRaw->extra)) {
-            $description = '';
-            foreach ($descriptionRaw->extra as $item) {
-                $description .= isset($item->bold) && $item->bold ? '<b>' : '';
-                $description .= '<font color="' . $item->color . '">' . $item->text . '</font>';
-                $description .= isset($item->bold) && $item->bold ? '</b>' : '';
+        if (gettype($descriptionRaw) == 'object') {
+            if (isset($descriptionRaw->extra)) {
+                $description = '';
+                $descriptionClean = '';
+                foreach ($descriptionRaw->extra as $item) {
+                    $description .= isset($item->bold) && $item->bold ? '<b>' : '';
+                    $description .= '<font color="' . $item->color . '">' . $item->text . '</font>';
+                    $description .= isset($item->bold) && $item->bold ? '</b>' : '';
+                    
+                    $descriptionClean .= $item->text;
+                }
+            } elseif (isset($descriptionRaw->text)) {
+                $description = '';
+                $descriptionClean = '';
+                
+                $codePattern = '/§([0-9a-fklmno])/'; // all but r (reset)
+                $exploded = explode('§r', $descriptionRaw->text);
+                foreach ($exploded as $part) {
+                    $replaceCount = 0;
+                    $description .= preg_replace($codePattern, '<span class="minecraft-format-$1">', $part, -1, $replaceCount);
+                    $description .= str_repeat('</span>', $replaceCount);
+                    
+                    $descriptionClean .= preg_replace($codePattern, '', $part);
+                }
             }
         }
         
@@ -67,6 +86,7 @@ class MinecraftServerStatus {
                 'players' => isset($data->players->online) ? $data->players->online : false,
                 'max_players' => isset($data->players->max) ? $data->players->max : false,
                 'description' => $description,
+                'description_clean' => $descriptionClean,
                 'description_raw' => $descriptionRaw,
                 'favicon' => isset($data->favicon) ? $data->favicon : false,
                 'modinfo' => isset($data->modinfo) ? $data->modinfo : false
