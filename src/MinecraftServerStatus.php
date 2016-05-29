@@ -19,10 +19,12 @@ class MinecraftServerStatus {
      * @param string $host            
      * @param number $port            
      */
+    public static function query ($host = '127.0.0.1', $port = 25565, $timeout = 5) {
         // check if the host is in ipv4 format
         $host = filter_var($host, FILTER_VALIDATE_IP) ? $host : gethostbyname($host);
         
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+		stream_set_timeout($socket, $timeout);
         if (! @socket_connect($socket, $host, $port)) {
             return false;
         }
