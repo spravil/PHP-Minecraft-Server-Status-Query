@@ -19,7 +19,6 @@ class MinecraftServerStatus {
      * @param string $host            
      * @param number $port            
      */
-    public static function query ($host = '127.0.0.1', $port = 25565) {
         // check if the host is in ipv4 format
         $host = filter_var($host, FILTER_VALIDATE_IP) ? $host : gethostbyname($host);
         
