@@ -53,7 +53,7 @@ class MinecraftServerStatus {
             $description = '';
             foreach ($descriptionRaw->extra as $item) {
                 $description .= isset($item->bold) && $item->bold ? '<b>' : '';
-                $description .= '<font color="' . $item->color . '">' . $item->text . '</font>';
+                $description .= isset($item->color) ? '<font color="' . $item->color . '">' . $item->text . '</font>' : '';
                 $description .= isset($item->bold) && $item->bold ? '</b>' : '';
             }
         }
