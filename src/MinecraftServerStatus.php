@@ -8,6 +8,10 @@
  * @license     https://github.com/FunnyItsElmo/PHP-Minecraft-Server-Status-Query/blob/master/LICENSE
  */
 namespace MinecraftServerStatus;
+
+require __DIR__ . "/Packets/HandshakePacket.php";
+require __DIR__ . "/Packets/PingPacket.php";
+
 use MinecraftServerStatus\Packets\HandshakePacket;
 use MinecraftServerStatus\Packets\PingPacket;
 
