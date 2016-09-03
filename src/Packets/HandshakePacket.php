@@ -9,6 +9,8 @@
  */
 namespace MinecraftServerStatus\Packets;
 
+require_once __DIR__ . "/Packet.php";
+
 class HandshakePacket extends Packet {
 
     public function __construct ($host, $port, $protocol, $nextState) {

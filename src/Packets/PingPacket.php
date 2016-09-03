@@ -9,6 +9,8 @@
  */
 namespace MinecraftServerStatus\Packets;
 
+require_once __DIR__ . "/Packet.php";
+
 class PingPacket extends Packet {
 
     public function __construct () {
