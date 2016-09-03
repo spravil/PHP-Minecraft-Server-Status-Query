@@ -49,12 +49,20 @@ class MinecraftServerStatus {
         $description = $descriptionRaw;
         
         // colorize the description if it is supported
-        if (gettype($descriptionRaw) == 'object' && isset($descriptionRaw->extra)) {
+        if (gettype($descriptionRaw) == 'object') {
             $description = '';
-            foreach ($descriptionRaw->extra as $item) {
-                $description .= isset($item->bold) && $item->bold ? '<b>' : '';
-                $description .= '<font color="' . $item->color . '">' . $item->text . '</font>';
-                $description .= isset($item->bold) && $item->bold ? '</b>' : '';
+            
+            if (isset($descriptionRaw->text)) {
+                $color = isset($descriptionRaw->color) ? $descriptionRaw->color : '';
+                $description = '<font color="' . $color . '">' . $descriptionRaw->text . '</font>';
+            }
+            
+            if (isset($descriptionRaw->extra)) {
+                foreach ($descriptionRaw->extra as $item) {
+                    $description .= isset($item->bold) && $item->bold ? '<b>' : '';
+                    $description .= isset($item->color) ? '<font color="' . $item->color . '">' . $item->text . '</font>' : '';
+                    $description .= isset($item->bold) && $item->bold ? '</b>' : '';
+                }
             }
         }
         
