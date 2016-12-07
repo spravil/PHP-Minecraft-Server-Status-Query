@@ -24,6 +24,10 @@ class MinecraftServerStatus {
         $host = filter_var($host, FILTER_VALIDATE_IP) ? $host : gethostbyname($host);
         
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        // set a timeout so that offline status is returned more quickly
+        socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array('sec' => 1, 'usec' => 0));
+        socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array('sec' => 1, 'usec' => 0));
+        
         if (! @socket_connect($socket, $host, $port)) {
             return false;
         }
