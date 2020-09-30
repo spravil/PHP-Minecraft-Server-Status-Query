@@ -1,4 +1,4 @@
-#Minecraft Server Status Query
+#Minecraft Server Status Query - Please read this carefully
 
 [![Latest Stable Version](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/v/stable)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![Total Downloads](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/downloads)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![Latest Unstable Version](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/v/unstable)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![License](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/license)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus)
 
