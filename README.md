@@ -1,4 +1,4 @@
-#Minecraft Server Status Query
+# Minecraft Server Status Query [Discontinued]
 
 [![Latest Stable Version](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/v/stable)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![Total Downloads](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/downloads)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![Latest Unstable Version](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/v/unstable)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![License](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/license)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus)
 
@@ -10,7 +10,7 @@ Minecraft Server Status Query, written in PHP, with online players, motd, favico
 ```
 composer require funnyitselmo/minecraftserverstatus
 ```
-###Tutorial
+### Tutorial
 ```Java
 use MinecraftServerStatus\MinecraftServerStatus;
 
@@ -30,7 +30,7 @@ if (! $response) {
 ```
 If the server is offline MinecraftServerStatus::query returns false else it returns an array which contains the server informations.
 
-###Variables
+### Variables
 The following table contains the available variables the response can contain. The default value of each variable is false.
 
 <table border="0">
