@@ -66,6 +66,7 @@ class MinecraftServerStatus {
                 'protocol' => isset($data->version->protocol) ? $data->version->protocol : false,
                 'players' => isset($data->players->online) ? $data->players->online : false,
                 'max_players' => isset($data->players->max) ? $data->players->max : false,
+                'player_list' => isset($data->players->sample) ? $data->players->sample : false,
                 'description' => $description,
                 'description_raw' => $descriptionRaw,
                 'favicon' => isset($data->favicon) ? $data->favicon : false,
