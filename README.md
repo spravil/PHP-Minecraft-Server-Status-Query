@@ -1,3 +1,6 @@
+# This is just a fork!
+I am not the author of this code, I am just keeping it updated for my personal use. Please have a look at the original author.
+
 # Minecraft Server Status Query [Discontinued]
 
 [![Latest Stable Version](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/v/stable)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![Total Downloads](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/downloads)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![Latest Unstable Version](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/v/unstable)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![License](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/license)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus)
