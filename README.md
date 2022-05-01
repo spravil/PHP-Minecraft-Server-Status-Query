@@ -29,6 +29,8 @@ if (! $response) {
 		currently are " . $response['players'] . " players online
 		of a maximum of " . $response['max_players'] . ". The motd of the server is '" . $response['description'] . "'.
 		The server has a ping of " . $response['ping'] . " milliseconds.";
+		
+		
     if($response['player_list'])
     echo 'Connected players:<br>';
     {
