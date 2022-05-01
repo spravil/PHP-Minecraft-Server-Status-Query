@@ -1,5 +1,5 @@
 {
-	"name" : "funnyitselmo/minecraftserverstatus",
+	"name" : "ok236449/minecraftserverstatus",
 	"type" : "library",
 	"description" : "Minecraft Server Status Query, written in PHP, with online players, motd, favicon and more server related informations without plugins and enable-query.",
 	"keywords" : [
@@ -10,7 +10,7 @@
 	"license" : "BSD",
 	"repositories" : [{
 			"type" : "vcs",
-			"url" : "https://github.com/FunnyItsElmo/PHP-Minecraft-Server-Status-Query.git"
+			"url" : "https://github.com/ok236449/PHP-Minecraft-Server-Status-Query.git"
 		}
 	],
 	"autoload" : {
