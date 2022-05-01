@@ -11,7 +11,7 @@ Minecraft Server Status Query, written in PHP, with online players, motd, favico
 
 ### Installation
 ```
-composer require funnyitselmo/minecraftserverstatus
+composer require ok236449/minecraftserverstatus
 ```
 ### Tutorial
 ```Java
@@ -68,6 +68,10 @@ The following table contains the available variables the response can contain. T
 <tr>
 <td><pre>'max_players'</pre></td>
 <td>Number of the slots of the server</td>
+</tr>
+<tr>
+<td><pre>'player_list'</pre></td>
+<td>Collection of connected players. It contains player´s nick and uuid.</td>
 </tr>
 <tr>
 <td><pre>'description'</pre></td>
