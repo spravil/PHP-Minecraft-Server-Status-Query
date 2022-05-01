@@ -29,6 +29,14 @@ if (! $response) {
 		currently are " . $response['players'] . " players online
 		of a maximum of " . $response['max_players'] . ". The motd of the server is '" . $response['description'] . "'.
 		The server has a ping of " . $response['ping'] . " milliseconds.";
+    if($response['player_list'])
+    echo 'Connected players:<br>';
+    {
+        foreach($response['player_list'] as $player)
+        {
+    	    echo $player . '<br>';
+	}
+    }
 }
 ```
 If the server is offline MinecraftServerStatus::query returns false else it returns an array which contains the server informations.
