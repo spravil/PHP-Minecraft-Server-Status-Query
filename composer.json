@@ -7,7 +7,7 @@
 		"server",
 		"status"
 	],
-	"license" : "BSD",
+	"license" : "proprietary",
 	"repositories" : [{
 			"type" : "vcs",
 			"url" : "https://github.com/ok236449/PHP-Minecraft-Server-Status-Query.git"
