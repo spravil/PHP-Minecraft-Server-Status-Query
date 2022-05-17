@@ -1,3 +1,6 @@
+# This is just a fork!
+I am not the author of this code, I am just keeping it updated for my personal use. Please have a look at the original author.
+
 # Minecraft Server Status Query [Discontinued]
 
 [![Latest Stable Version](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/v/stable)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![Total Downloads](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/downloads)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![Latest Unstable Version](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/v/unstable)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus) [![License](https://poser.pugx.org/funnyitselmo/minecraftserverstatus/license)](https://packagist.org/packages/funnyitselmo/minecraftserverstatus)
@@ -8,7 +11,7 @@ Minecraft Server Status Query, written in PHP, with online players, motd, favico
 
 ### Installation
 ```
-composer require funnyitselmo/minecraftserverstatus
+composer require ok236449/minecraftserverstatus
 ```
 ### Tutorial
 ```Java
@@ -26,6 +29,16 @@ if (! $response) {
 		currently are " . $response['players'] . " players online
 		of a maximum of " . $response['max_players'] . ". The motd of the server is '" . $response['description'] . "'.
 		The server has a ping of " . $response['ping'] . " milliseconds.";
+		
+		
+    if($response['player_list'])
+    echo 'Connected players:<br>';
+    {
+        foreach($response['player_list'] as $player)
+        {
+    	    echo $player . '<br>';
+	}
+    }
 }
 ```
 If the server is offline MinecraftServerStatus::query returns false else it returns an array which contains the server informations.
@@ -65,6 +78,10 @@ The following table contains the available variables the response can contain. T
 <tr>
 <td><pre>'max_players'</pre></td>
 <td>Number of the slots of the server</td>
+</tr>
+<tr>
+<td><pre>'player_list'</pre></td>
+<td>Collection of connected players. It contains player´s nick and uuid.</td>
 </tr>
 <tr>
 <td><pre>'description'</pre></td>
